@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.hotelkontena.partner" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Kontena Partner</name>
-    <icon src="www/img/logo.png" platform="ios" width="57" height="57" density="mdpi" />
+    <icon density="mdpi" height="57" platform="ios" src="www/img/logo.png" width="57" />
     <description>
         Untuk Partner Kontena
     </description>
@@ -10,8 +10,8 @@
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
+    <preferance name="android-usesCleartextTraffic" value="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -25,4 +25,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <engine name="android" spec="^8.1.0" />
 </widget>

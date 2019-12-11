@@ -1,8 +1,8 @@
 function onLogin(){
     const username = $('#loginPhone').val();
     const password = $('#loginPassword').val();
-
-    event.preventDefault();
+    console.log('here')
+    // event.preventDefault();
     $.ajax({
         crossDomain: true,
         type: 'POST',
