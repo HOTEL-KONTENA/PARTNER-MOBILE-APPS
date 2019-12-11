@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="mobileui/style.css">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>KONTENA PARTNER</title>
+    </head>
+    <body class="content">
+      <div class="cover no-padding" style="background-image:url(img/header.jpg); opacity: 80%">
+        <div class="space-big"></div>
+        <div class="space-huge"></div>
+        <div class="list gradient no-border">
+          <div class="item space-small row text-white align-center">
+            <div class="col" onclick="openTabPoint()">
+              <span class="text-big text-bold numbers text-black" id="pointTotal">0</span>
+              <p class="text-small text-light text-grey-400">POINTS</p>
+            </div>
+            <div class="col" onclick="openTabRate()">
+              <span class="text-big text-bold numbers text-black" id="taRateNow">0</span>
+              <p class="text-small text-light text-grey-400">TODAY`S RATE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="list" id="listPoint" style="margin-bottom: 50px;">
+        <div class="item">
+          <h2 id="taName">TRAVEL AGENT NAME</h2>
+          <p class="text-grey-500" id="taLevel">SILVER MEMBER</p>
+          <div id="kontena"></div>
+          <div class="row">
+              <div class="col col-3 align-left text-grey-500"><small id="taLevelNow">SILVER</small></div>
+              <div class="col col-6 align-center text-grey-500"><span style="font-size:11px;" id="taLevelAchieve" class="numbers">0 more</span></div>
+              <div class="col col-3 align-right text-grey-500"><small id="taLevelNext">GOLD</small></div>
+          </div>
+        </div>
+        <div class="item" style="background-color: #EFEFEF">
+          <p class="text-grey-500"><strong>POINT LOG THIS MONTH</strong></p>
+        </div>
+        <div class="item points">
+          <i class="float-center" style="font-size:11px;">all in good time</i>
+        </div>
+      </div>
+      <div class="list" id="listRate" style="margin-bottom: 50px;">
+        <div class="item" style="background-color: #EFEFEF">
+          <p class="text-grey-500"><strong>ROOM RATE FOR NEXT 2 WEEKS</strong></p>
+        </div>
+        <div class="item rates">
+          <i class="float-center" style="font-size:11px;">all in good time</i>
+        </div>
+      </div>
+       
+    <button class="red circle icon ion-power shadow float-bottom-right" onclick="onLogout()"></button>
+    
+    <script type="text/javascript" src="mobileui/mobileui.js"></script>
+    <script type="text/javascript" src="js/logout.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+    <style type="text/css">
+        #kontena {
+          margin: 15px;
+          height: 8px;
+          position: relative;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>
