@@ -133,7 +133,7 @@ function pointSection (pid){
                     var d = new Date(this.date).getDate();
                     var m = mN[new Date(this.date).getMonth()];
                     var Y = new Date(this.date).getFullYear();
-                    var html = '<div class="item fields"><div class="row"><div class="col-20"><p class="align-center">'+d+'<br/>'+m+'<br/>'+Y+'</p></div><div class="col-50"><p class="text-grey-500 wrap"><strong>'+money(this.amount)+'</strong><br/>'+this.note+'</p></div><div class="col"><h1 class="text-green text-strong align-right vertical-align-bottom">'+money(this.balance)+'</h1></div></div></div>';
+                    var html = '<div class="item fields"><div class="row"><div class="col-30"><p class="align-center">'+d+m+Y+'</p></div><div class="col"><p class="text-grey-500 wrap"><strong>'+money(this.amount)+'</strong><br/>'+this.note+'</p></div><div class="col"><h1 class="text-green text-strong align-right vertical-align-bottom">'+money(this.balance)+'</h1></div></div></div>';
                     $('#historical').append(html); //append your new tr
                 });
             }else{

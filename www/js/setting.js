@@ -18,3 +18,11 @@
  */
 // window.localStorage.setItem('base_url', 'https://enginev1.hotelkontena.com/api');
 window.localStorage.setItem('base_url', 'http://128.199.145.173:9888/api');
+
+document.addEventListener("deviceready", onDeviceReadyFCM, false);
+ 
+function onDeviceReadyFCM(){
+    FCMPlugin.onNotification(function(data){
+        //HERE LIES NOTIFS
+    });
+}
