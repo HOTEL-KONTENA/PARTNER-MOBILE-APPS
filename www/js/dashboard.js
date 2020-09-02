@@ -14,7 +14,6 @@ $(function() {
     $('.loading').hide();
     $('#date').val(fd);
     $('#pointDate').val(fd);
-    $('#comissionDate').val(fd);
 
     this.statSection()
     this.rateSection()
@@ -26,8 +25,6 @@ $(function() {
     }else{
         hash.click()
     }
-
-    this.reloadPoint();
 });
 
 
@@ -74,11 +71,20 @@ function statSection (){
             $("#taLevel").html(ps[i].membership.level + " MEMBER");
             $("#taLevelNow").html(ps[i].membership.level);
             $("#taLevelNext").html(ps[i].membership.next_level);
-            $("#points").html((ps[i].membership.total_point/1000) + "K");
-            $("#comissions").html((ps[i].membership.total_comission/1000) + "K");
+            $("#comissions").html(this.money(ps[i].membership.total_comission/1000) + "K");
+
+            // $("#points").html(this.money(ps[i].membership.total_point/1000) + "K");
+            // if(ps[i].membership.level_achieve > 1000000){
+            //     $("#bills").html(this.money(ps[i].membership.level_achieve/1000000) + "MIO");
+            // }else{
+            //     $("#bills").html(this.money(ps[i].membership.level_achieve/1000) + "K");
+            // }
+            $("#bills").html(this.money(ps[i].membership.level_achieve));
+            $("#points").html(this.money(ps[i].membership.total_point));
+
             let selisih = ps[i].membership.next_level_target - ps[i].membership.level_achieve;
             if(selisih > 0){
-                $("#taLevelAchieve").html(selisih+" more");
+                $("#taLevelAchieve").html(this.money(selisih)+" more");
             }else{
                 $("#taLevelAchieve").html("accomplished");
             }
@@ -92,96 +98,13 @@ function statSection (){
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: 1400,
-      color: '#f44336',
-      trailColor: '#eee',
+      color: '#4caf50',
+      trailColor: '#b13e16',
       trailWidth: 1,
       svgStyle: {width: '100%', height: '100%'}
     });
 
     bar.animate(perc);  // Number from 0.0 to 1.0
-    // this.pointSection(pid)
-}
-
-function pointSection (pid){
-    const mN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-      "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"
-    ];
-
-    const start = $('#pointDate').val();
-
-    $.ajax({
-        crossDomain: true,
-        type: 'GET',
-        // make sure you respect the same origin policy with this url:
-        // http://en.wikipedia.org/wiki/Same_origin_policy
-        url: window.localStorage.getItem('base_url')+"/partner/point",
-        data: { start: start, end: start+' + 1 day', partner_id : pid },
-        beforeSend: function (xhr) {
-            /* Authorization header */
-            xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('user.jwt'));
-            // xhr.setRequestHeader("X-Mobile", "false");
-        },
-        success: function(msg){
-            if(msg.status==='success'){
-                $(".fields").remove(); //remove all the tr's except first ,As you are using it as table headers.     
-                if(!msg.data.length){
-                    var html = '<div class="item align-center fields"><i class="float-center" style="font-size:11px;">belum ada data</i></div>'
-                    $('#historical').append(html); //append your new tr
-                }
-
-                $(msg.data).each(function () {
-                    var d = new Date(this.date).getDate();
-                    var m = mN[new Date(this.date).getMonth()];
-                    var Y = new Date(this.date).getFullYear();
-                    var html = '<div class="item fields"><div class="row"><div class="col-30"><p class="align-center">'+d+m+Y+'</p></div><div class="col"><p class="text-grey-500 wrap"><strong>'+money(this.amount)+'</strong><br/>'+this.note+'</p></div><div class="col"><h1 class="text-green text-strong align-right vertical-align-bottom">'+money(this.balance)+'</h1></div></div></div>';
-                    $('#historical').append(html); //append your new tr
-                });
-            }else{
-                alert(msg.message);
-            }
-        }
-    });
-}
-
-function comissionSection (pid){
-    const mN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-      "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"
-    ];
-
-    const start = $('#comissionDate').val();
-
-    $.ajax({
-        crossDomain: true,
-        type: 'GET',
-        // make sure you respect the same origin policy with this url:
-        // http://en.wikipedia.org/wiki/Same_origin_policy
-        url: window.localStorage.getItem('base_url')+"/partner/comission",
-        data: { start: start, end: start+' + 1 day', partner_id : pid },
-        beforeSend: function (xhr) {
-            /* Authorization header */
-            xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('user.jwt'));
-            // xhr.setRequestHeader("X-Mobile", "false");
-        },
-        success: function(msg){
-            if(msg.status==='success'){
-                $(".fields").remove(); //remove all the tr's except first ,As you are using it as table headers.     
-                if(!msg.data.length){
-                    var html = '<div class="item align-center fields"><i class="float-center" style="font-size:11px;">belum ada data</i></div>'
-                    $('#historical').append(html); //append your new tr
-                }
-
-                $(msg.data).each(function () {
-                    var d = new Date(this.date).getDate();
-                    var m = mN[new Date(this.date).getMonth()];
-                    var Y = new Date(this.date).getFullYear();
-                    var html = '<div class="item fields"><div class="row"><div class="col-20"><p class="align-center">'+d+'<br/>'+m+'<br/>'+Y+'</p></div><div class="col-50"><p class="text-grey-500 wrap"><strong>'+money(this.amount)+'</strong><br/>'+this.note+'</p></div><div class="col"><h1 class="text-green text-strong align-right vertical-align-bottom">'+money(this.balance)+'</h1></div></div></div>';
-                    $('#historical').append(html); //append your new tr
-                });
-            }else{
-                alert(msg.message);
-            }
-        }
-    });
 }
 
 function rateSection (){
@@ -254,18 +177,6 @@ function reloadRate(){
     this.openMyTab('myTabRates', 'rateTab')
 }
 
-function reloadPoint(){
-    this.pointSection($('#pid').val())
-    this.openMyTab('myTabHome', 'homeTab')
-    this.openMySubTab('pointTab')
-}
-
-function reloadComission(){
-    this.comissionSection($('#pid').val())
-    this.openMyTab('myTabHome', 'homeTab')
-    this.openMySubTab('comissionTab')
-}
-
 function reloadPrice (date, id){
     const mN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
       "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"
@@ -318,13 +229,10 @@ function reloadPrice (date, id){
     $("#"+id+' .text-big').addClass('text-white')
 }
 
-function money(n) {
-    return n.toLocaleString('en-US', {minimumFractionDigits: 0});
+function onPoint(){
+    window.location.href = "point.html";
 }
 
-$.fn.digits = function(){ 
-    return this.each(function(){ 
-        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
-    })
+function onComission(){
+    window.location.href = "comission.html";
 }
-

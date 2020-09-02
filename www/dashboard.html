@@ -60,8 +60,27 @@
           </div>
         </div>
         
-        <div class="list" id="historical" style="margin-bottom: 200px;">
-          <div class="item">
+        <div class="list" id="historical" style="margin-bottom: 100px;">
+          <div class="row align-center">
+            <div class="col-50 padding grey-200">
+              <h1 class="text-big text-strong" id="bills">0</h1>
+              <p>Total Bills</p>
+            </div>
+            <div class="col-50 padding green" onclick="onPoint()">
+              <h1 class="text-big text-strong" id="points">0</h1>
+              <p>Points</p>
+            </div>
+            <!-- <div class="col-50 padding green" onclick="onComission()">
+              <h1 class="text-huge text-strong" id="comissions">0</h1>
+              <p>Comissions</p>
+            </div> -->
+          </div>
+          <div class="row align-center">
+            <div class="col-100 text-center" style="text-transform: lowercase;">
+              <i class="text-grey-500">*klik point untuk cek riwayat transaksi</i>
+            </div>
+          </div>
+          <div class="item grey-200">
             <h2 id="taName">TRAVEL AGENT NAME</h2>
             <p class="text-grey-500" id="taLevel">SILVER MEMBER</p>
             <div id="kontena"></div>
@@ -71,32 +90,6 @@
                 <div class="col col-3 align-right text-grey-500"><small id="taLevelNext">GOLD</small></div>
                 <input type="hidden" id="pid">
             </div>
-          </div>
-          <div class="row align-center">
-            <div class="col-50 padding light-green" onclick="reloadPoint()">
-              <h1 class="text-huge text-strong" id="points">0</h1>
-              <p>Points</p>
-            </div>
-            <div class="col-50 padding orange-400" onclick="reloadComission()">
-              <h1 class="text-huge text-strong" id="comissions">0</h1>
-              <p>Comissions</p>
-            </div>
-          </div>
-          <div class="row align-center">
-            <div class="col-100 text-center" style="text-transform: lowercase;">
-              <i class="text-grey-500">*klik point/comission untuk cek riwayat transaksi</i>
-            </div>
-          </div>
-          <div class="item subtab" style="background-color: #EFEFEF" id="pointTab">
-            <label class="text-green">Riwayat point tanggal</label>
-            <input type="date" placeholder="yyyy-mm-dd" id="pointDate" onChange="reloadPoint()">
-          </div>
-          <div class="item subtab" style="background-color: #EFEFEF" id="comissionTab">
-            <label class="text-green">Riwayat comission tanggal</label>
-            <input type="date" placeholder="yyyy-mm-dd" id="comissionDate" onChange="reloadComission()">
-          </div>
-          <div class="item fields">
-            <i class="float-center" style="font-size:11px;">all in good time</i>
           </div>
         </div>
       </div>

@@ -16,13 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-// window.localStorage.setItem('base_url', 'https://enginev1.hotelkontena.com/api');
-window.localStorage.setItem('base_url', 'http://128.199.145.173:9888/api');
+window.localStorage.setItem('base_url', 'https://enginev1.hotelkontena.com/api');
+// window.localStorage.setItem('base_url', 'http://128.199.145.173:9888/api');
 
 document.addEventListener("deviceready", onDeviceReadyFCM, false);
  
 function onDeviceReadyFCM(){
     FCMPlugin.onNotification(function(data){
-        //HERE LIES NOTIFS
+        if(data.wasTapped){
+          //Notification was received on device tray and tapped by the user.
+          // window.localStorage.setItem('notif.title', data.title);
+        }else{
+          //Notification was received in foreground. Maybe the user needs to be notified.
+          // window.localStorage.setItem('notif.title', data.title);
+        }
     });
 }
+
+function money(n) {
+    return n.toLocaleString('en-US', {minimumFractionDigits: 0});
+}
+
+$.fn.digits = function(){ 
+    return this.each(function(){ 
+        $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+    })
+}
+
