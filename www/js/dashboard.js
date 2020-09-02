@@ -189,7 +189,7 @@ function reloadPrice (date, id){
         // make sure you respect the same origin policy with this url:
         // http://en.wikipedia.org/wiki/Same_origin_policy
         url: window.localStorage.getItem('base_url')+"/partner/rate",
-        data: { start: date},
+        data: { start: date, is_bedroom: true, order_by: 'price', order_desc: true },
         beforeSend: function (xhr) {
             /* Authorization header */
             xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('user.jwt'));
@@ -197,22 +197,25 @@ function reloadPrice (date, id){
         },
         success: function(msg){
             if(msg.status==='success'){
-                $(msg.data).each(function () {
+                $(msg.data).each(function (index, value) {
                     var d = new Date(this.date).getDate();
                     var mx = mN[new Date(this.date).getMonth()];
                     var m = new Date(this.date).getMonth();
                     var Y = new Date(this.date).getFullYear();
-                    if(this.room_rates.length){
-                        var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 wrap">'+this.name+'</p></div><div class="col"><h1 class="text-green text-strong align-right" style="margin-top:0px !important">'+money(this.room_rates[0].net)+'</h1></div></div></div>';
-                        $('#listRate').append(html); //append your new tr
-                        for (var i = 0; i < this.room_rates.length; i++) {
-                            var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 wrap align-right" style="font-size:12px !important">'+this.room_rates[i].title+'</p></div><div class="col"><h1 class="text-grey-500 align-right" style="margin-top:0px !important; font-size:12px !important">'+money(this.room_rates[i].net)+'</h1></div></div></div>';
+
+                    if(value.is_bedroom === 1) {
+                        if(value.room_rates.length){
+                            var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 text-strong wrap">'+value.name+'</p></div><div class="col"><h1 class="text-green text-strong align-right" style="margin-top:0px !important">'+money(value.room_rates[0].net)+'</h1></div></div></div>';
+                            $('#listRate').append(html); //append your new tr
+                            for (var i = 0; i < value.room_rates.length; i++) {
+                                var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 wrap align-left" style="font-size:12px !important">'+value.room_rates[i].title+'</p></div><div class="col"><h1 class="text-grey-500 align-right" style="margin-top:0px !important; font-size:12px !important">'+money(value.room_rates[i].net)+'</h1></div></div></div>';
+                                $('#listRate').append(html); //append your new tr
+                            }
+                        }
+                        if(value.bottom_rates && value.bottom_rates.length){
+                            var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 wrap align-left" style="font-size:12px !important">Bottom Rate</p></div><div class="col"><h1 class="text-grey-500 align-right" style="margin-top:0px !important; font-size:12px !important">'+money(value.bottom_rates[0].price)+'</h1></div></div></div>';
                             $('#listRate').append(html); //append your new tr
                         }
-                    }
-                    if(this.bottom_rates.length){
-                        var html = '<div class="item rates"><div class="row"><div class="col-75"><p class="text-grey-500 wrap align-right" style="font-size:12px !important">Bottom Rate</p></div><div class="col"><h1 class="text-grey-500 align-right" style="margin-top:0px !important; font-size:12px !important">'+money(this.bottom_rates[0].price)+'</h1></div></div></div>';
-                        $('#listRate').append(html); //append your new tr
                     }
                 });
             }else{
