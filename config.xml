@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="id.thunderlab.riverstonePartner" version="1.3.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Riverstone Partner</name>
-    <icon density="mdpi" height="57" platform="ios" src="www/img/logo4.png" width="57" />
+<widget id="id.thunderlab.kontenaPartner" version="2.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>JC Hotel Partner</name>
+    <icon density="mdpi" height="57" platform="ios" src="www/img/logo2.png" width="57" />
     <description>
-        Untuk Partner Riverstone
+        Untuk Partner JC Hotel
     </description>
     <author email="hello@thunderlab.id" href="https://thunderlab.id">
         PT Thunderlabs Indonesia

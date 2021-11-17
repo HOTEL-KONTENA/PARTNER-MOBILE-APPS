@@ -93,8 +93,8 @@ function statSection (){
             $("#pid").val(pid);
         }
     }
-    $("#riverstone svg").remove();
-    var bar = new ProgressBar.Line(riverstone, {
+    $("#jchotel svg").remove();
+    var bar = new ProgressBar.Line(JC HOTEL, {
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: 1400,
