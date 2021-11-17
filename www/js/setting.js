@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-window.localStorage.setItem('base_url', 'https://enginev1.hotelkontena.com/api');
+window.localStorage.setItem('base_url', 'https://enginev1.hotelriverstone.com/api');
 // window.localStorage.setItem('base_url', 'http://128.199.145.173:9888/api');
 
 document.addEventListener("deviceready", onDeviceReadyFCM, false);
