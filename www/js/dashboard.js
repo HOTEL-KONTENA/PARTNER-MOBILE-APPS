@@ -15,6 +15,7 @@ $(function() {
     $('#date').val(fd);
     $('#pointDate').val(fd);
 
+    this.reloadOid()
     this.statSection()
     this.rateSection()
     $("span.numbers").digits();
@@ -57,6 +58,18 @@ function openMySubTab(tab){
     $("#"+tab).show();
 }
 
+function reloadOid (){
+    let ps = JSON.parse(sessionStorage.getItem('user.partners'));
+    $(".orgs").remove(); //remove all the tr's except first ,As you are using it as table headers.            
+    for (let i in ps) {
+        if(ps[i].membership){
+            for (let j in ps[i].membership.org_group.orgs) {
+                $("#oid").append("<option class='orgs' value='"+ps[i].membership.org_group.orgs[j].id+"'>" +ps[i].membership.org_group.orgs[j].name+ "</option>");
+            }
+        }
+    }
+}
+
 function statSection (){
     let point = 0
     let perc  = 0
@@ -94,7 +107,7 @@ function statSection (){
         }
     }
     $("#jchotel svg").remove();
-    var bar = new ProgressBar.Line(JC HOTEL, {
+    var bar = new ProgressBar.Line(jchotel, {
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: 1400,
@@ -113,6 +126,9 @@ function rateSection (){
     ];
 
     const start = $('#date').val();
+    const oid = $('#oid').val();
+    
+    $(".rates").remove(); //remove all the tr's except first ,As you are using it as table headers.            
 
     $.ajax({
         crossDomain: true,
@@ -120,7 +136,7 @@ function rateSection (){
         // make sure you respect the same origin policy with this url:
         // http://en.wikipedia.org/wiki/Same_origin_policy
         url: window.localStorage.getItem('base_url')+"/partner/rates",
-        data: { start: start, end: start+" + 1 week"},
+        data: {org_id:oid, start: start, end: start+" + 1 week"},
         beforeSend: function (xhr) {
             /* Authorization header */
             xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('user.jwt'));
@@ -135,7 +151,7 @@ function rateSection (){
                     var mx = mN[new Date(this.date).getMonth()];
                     var m = new Date(this.date).getMonth() + 1;
                     var Y = new Date(this.date).getFullYear();
-                    var html='<div class="swiper-slide" id="harga'+d+'" onClick="reloadPrice(`'+Y+'-'+m+'-'+d+'`, `harga'+d+'`)"><p class="align-center">'+d+'/'+m+'/'+Y+'</p><p class="align-center text-small text-light text-grey-400">Mulai</p><p class="align-center text-big text-green text-bold">'+money(this.net)+'</p></div>';
+                    var html='<div class="swiper-slide" id="harga'+d+'" onClick="reloadPrice(`'+Y+'-'+m+'-'+d+'`, `harga'+d+'`, '+oid+')"><p class="align-center">'+d+'/'+m+'/'+Y+'</p><p class="align-center text-small text-light text-grey-400">Mulai</p><p class="align-center text-big text-green text-bold">'+money(this.net)+'</p></div>';
                     $('.swiper-wrapper').append(html); //append your new tr
                 });
             }else{
@@ -177,7 +193,7 @@ function reloadRate(){
     this.openMyTab('myTabRates', 'rateTab')
 }
 
-function reloadPrice (date, id){
+function reloadPrice (date, id, oid){
     const mN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
       "JUL", "AUG", "SEPT", "OCT", "NOV", "DEC"
     ];
@@ -189,7 +205,7 @@ function reloadPrice (date, id){
         // make sure you respect the same origin policy with this url:
         // http://en.wikipedia.org/wiki/Same_origin_policy
         url: window.localStorage.getItem('base_url')+"/partner/rate",
-        data: { start: date, is_bedroom: true, order_by: 'price', order_desc: true },
+        data: { org_id: oid, start: date, is_bedroom: true, order_by: 'price', order_desc: true },
         beforeSend: function (xhr) {
             /* Authorization header */
             xhr.setRequestHeader("Authorization", "Bearer " + sessionStorage.getItem('user.jwt'));

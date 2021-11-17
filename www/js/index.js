@@ -20,7 +20,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        window.localStorage.setItem('base_url', 'https://enginev1.hotelJC HOTEL.com/api');
+        window.localStorage.setItem('base_url', 'https://sandy.hotelkontena.com/api');
         // window.localStorage.setItem('base_url', 'http://128.199.145.173:9777/api');
     },
 

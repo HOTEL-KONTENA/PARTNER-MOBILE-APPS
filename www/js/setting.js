@@ -16,21 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-window.localStorage.setItem('base_url', 'https://enginev1.hotelJC HOTEL.com/api');
+window.localStorage.setItem('base_url', 'https://sandy.hotelkontena.com/api');
 // window.localStorage.setItem('base_url', 'http://128.199.145.173:9888/api');
 
 document.addEventListener("deviceready", onDeviceReadyFCM, false);
  
 function onDeviceReadyFCM(){
-    FCMPlugin.onNotification(function(data){
-        if(data.wasTapped){
-          //Notification was received on device tray and tapped by the user.
-          // window.localStorage.setItem('notif.title', data.title);
-        }else{
-          //Notification was received in foreground. Maybe the user needs to be notified.
-          // window.localStorage.setItem('notif.title', data.title);
-        }
-    });
+    // FCMPlugin.onNotification(function(data){
+    //     if(data.wasTapped){
+    //       //Notification was received on device tray and tapped by the user.
+    //       // window.localStorage.setItem('notif.title', data.title);
+    //     }else{
+    //       //Notification was received in foreground. Maybe the user needs to be notified.
+    //       // window.localStorage.setItem('notif.title', data.title);
+    //     }
+    // });
 }
 
 function money(n) {
