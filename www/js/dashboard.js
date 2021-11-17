@@ -93,8 +93,8 @@ function statSection (){
             $("#pid").val(pid);
         }
     }
-    $("#kontena svg").remove();
-    var bar = new ProgressBar.Line(kontena, {
+    $("#riverstone svg").remove();
+    var bar = new ProgressBar.Line(riverstone, {
       strokeWidth: 4,
       easing: 'easeInOut',
       duration: 1400,
